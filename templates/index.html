@@ -4,6 +4,68 @@
     <meta charset="UTF-8">
     <title>Weather App</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Chatbox styling */
+        .chatbox {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 280px;
+            height: 350px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-family: Arial, sans-serif;
+        }
+        .chatbox-header {
+            background: #0078d7;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            font-weight: bold;
+        }
+        .chatbox-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+        .chatbox-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+        .chatbox-input input {
+            flex: 1;
+            border: none;
+            padding: 8px;
+            font-size: 14px;
+            border-bottom-left-radius: 12px;
+        }
+        .chatbox-input button {
+            border: none;
+            background: #0078d7;
+            color: white;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom-right-radius: 12px;
+        }
+        .chat-msg {
+            margin-bottom: 8px;
+        }
+        .chat-msg.user {
+            text-align: right;
+            color: #0078d7;
+        }
+        .chat-msg.bot {
+            text-align: left;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -31,11 +93,23 @@
         {% endif %}
     </div>
 
+    <!-- Chatbox -->
+    <div class="chatbox">
+        <div class="chatbox-header">Chat Support</div>
+        <div class="chatbox-messages" id="chatbox-messages">
+            <div class="chat-msg bot">Hi! How can I help you?</div>
+        </div>
+        <div class="chatbox-input">
+            <input type="text" id="chatbox-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
     <script>
         let isCelsius = true;
         document.getElementById('toggle-temp').addEventListener('click', function() {
             const tempElement = document.getElementById('temperature');
-            let temp = parseFloat(tempElement.textContent.replace('Temperature: ', '').replace('°C', ''));
+            let temp = parseFloat(tempElement.textContent.replace('Temperature: ', '').replace(/[°CF]/g, ''));
 
             if (isCelsius) {
                 temp = temp * 9 / 5 + 32;
@@ -48,6 +122,33 @@
             }
             isCelsius = !isCelsius;
         });
+
+        // Chatbox logic
+        function sendMessage() {
+            const input = document.getElementById("chatbox-input");
+            const msg = input.value.trim();
+            if (msg === "") return;
+
+            const messages = document.getElementById("chatbox-messages");
+
+            // User message
+            const userMsg = document.createElement("div");
+            userMsg.className = "chat-msg user";
+            userMsg.textContent = msg;
+            messages.appendChild(userMsg);
+
+            // Bot reply (static demo)
+            const botMsg = document.createElement("div");
+            botMsg.className = "chat-msg bot";
+            botMsg.textContent = "Thanks for your message! (Demo reply)";
+            messages.appendChild(botMsg);
+
+            // Scroll to bottom
+            messages.scrollTop = messages.scrollHeight;
+
+            // Clear input
+            input.value = "";
+        }
     </script>
 </body>
 </html>
