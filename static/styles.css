@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #74b9ff, #a29bfe);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1.5s ease-in;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    animation: slideUp 1s ease-out;
+}
+
+h1 {
+    color: #0984e3;
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+}
+
+h1:hover {
+    color: #6c5ce7;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 10px;
+    width: 70%;
+    border: 2px solid #0984e3;
+    border-radius: 5px;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: #6c5ce7;
+    box-shadow: 0px 0px 5px #6c5ce7;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #0984e3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #74b9ff;
+    transform: scale(1.05);
+}
+
+.weather-container {
+    background-color: #f1f2f6;
+    padding: 20px;
+    border-radius: 10px;
+    animation: fadeIn 2s ease-in;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    animation: shake 0.5s;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}

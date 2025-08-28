@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+
+        <form method="POST">
+            <input type="text" name="city" placeholder="Enter city name" required>
+            <button type="submit">Get Weather</button>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if weather_data %}
+            <div class="weather-container">
+                <h2>{{ weather_data.city }}</h2>
+                <img src="http://openweathermap.org/img/w/{{ weather_data.icon }}.png" alt="Weather icon">
+                <p id="temperature">Temperature: {{ weather_data.temperature_celsius }}°C</p>
+                <p>Description: {{ weather_data.description|capitalize }}</p>
+                <p>Humidity: {{ weather_data.humidity }}%</p>
+                <p>Wind Speed: {{ weather_data.wind_speed }} m/s</p>
+                <button id="toggle-temp">Switch to Fahrenheit</button>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        let isCelsius = true;
+        document.getElementById('toggle-temp').addEventListener('click', function() {
+            const tempElement = document.getElementById('temperature');
+            let temp = parseFloat(tempElement.textContent.replace('Temperature: ', '').replace('°C', ''));
+
+            if (isCelsius) {
+                temp = temp * 9 / 5 + 32;
+                tempElement.textContent = `Temperature: ${temp.toFixed(1)}°F`;
+                this.textContent = "Switch to Celsius";
+            } else {
+                temp = (temp - 32) * 5 / 9;
+                tempElement.textContent = `Temperature: ${temp.toFixed(1)}°C`;
+                this.textContent = "Switch to Fahrenheit";
+            }
+            isCelsius = !isCelsius;
+        });
+    </script>
+</body>
+</html>
