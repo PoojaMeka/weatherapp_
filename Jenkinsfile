@@ -18,7 +18,7 @@ pipeline {
             steps {
                 bat 'docker stop weather-container || exit 0'
                 bat 'docker rm weather-container || exit 0'
-                bat 'docker run -d -p 8000:8000 --name weather-container weather-app'
+                bat 'docker run -d -p 8001:8001 --name weather-container weather-app'
             }
         }
     }
