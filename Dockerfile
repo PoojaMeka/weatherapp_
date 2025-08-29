@@ -6,6 +6,6 @@ RUN pip install flask requests
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 8001
 
 CMD ["python", "app.py"]
